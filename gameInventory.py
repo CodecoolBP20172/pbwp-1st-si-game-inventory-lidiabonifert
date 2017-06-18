@@ -17,6 +17,7 @@ def add_to_inventory(inventory, added_items):
     for i in range(len(added_items)):
         inventory.setdefault(added_items[i], 0)
         inventory[added_items[i]] += 1
+    return inventory
 
 
 def print_table(inventory, order=None):
@@ -51,11 +52,6 @@ def print_table(inventory, order=None):
     return inventory
 
 
-def display_loot(loot):
-    print("\nReceived loot: ")
-    print(loot)
-
-
 def import_inventory(inventory, filename="test_inventory.csv"):
     read_inv = open(filename, "r")
     reader = csv.reader(read_inv, quoting=csv.QUOTE_NONE)
@@ -67,6 +63,7 @@ def import_inventory(inventory, filename="test_inventory.csv"):
 
     add_to_inventory(inventory, imported_inv)
     read_inv.close()
+    return inventory
 
 
 def export_inventory(inventory, filename="export_inventory.csv"):
@@ -80,16 +77,3 @@ def export_inventory(inventory, filename="export_inventory.csv"):
 
     writer.writerow(archive)
     open_inv.close()
-
-
-inv = {"rope": 1,
-       "torch": 6,
-       "gold coin": 42,
-       "dagger": 1,
-       "arrow": 12}
-dragon_loot = ["gold coin", "dagger", "gold coin", "gold coin", "ruby"]
-
-display_inventory(inv)
-add_to_inventory(print_table(inv, "count,asc"), dragon_loot)
-import_inventory(print_table(inv, "count,desc"))
-export_inventory(inv)
