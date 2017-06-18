@@ -17,8 +17,6 @@ def add_to_inventory(inventory, added_items):
     for i in range(len(added_items)):
         inventory.setdefault(added_items[i], 0)
         inventory[added_items[i]] += 1
-    display_loot(added_items)
-    return inventory
 
 
 def print_table(inventory, order=None):
@@ -50,6 +48,7 @@ def print_table(inventory, order=None):
 
     print("-".center(leftside + rightside, "-"))
     print("Total number of items: ", items_count)
+    return inventory
 
 
 def display_loot(loot):
@@ -68,7 +67,6 @@ def import_inventory(inventory, filename="test_inventory.csv"):
 
     add_to_inventory(inventory, imported_inv)
     read_inv.close()
-    return inventory
 
 
 def export_inventory(inventory, filename="export_inventory.csv"):
@@ -92,6 +90,6 @@ inv = {"rope": 1,
 dragon_loot = ["gold coin", "dagger", "gold coin", "gold coin", "ruby"]
 
 display_inventory(inv)
-print_table(add_to_inventory(inv, dragon_loot), "count,asc")
-print_table(import_inventory(inv), "count,desc")
+add_to_inventory(print_table(inv, "count,asc"), dragon_loot)
+import_inventory(print_table(inv, "count,desc"))
 export_inventory(inv)
