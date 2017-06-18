@@ -58,7 +58,8 @@ def display_loot(loot):
 
 
 def import_inventory(inventory, filename="test_inventory.csv"):
-    reader = csv.reader(open(filename, 'r'), quoting=csv.QUOTE_NONE)
+    read_inv = open(filename, "r")
+    reader = csv.reader(read_inv, quoting=csv.QUOTE_NONE)
     imported_inv = []
 
     for row in reader:
@@ -66,19 +67,21 @@ def import_inventory(inventory, filename="test_inventory.csv"):
             imported_inv.append(item)
 
     add_to_inventory(inventory, imported_inv)
+    read_inv.close()
     return inventory
 
 
 def export_inventory(inventory, filename="export_inventory.csv"):
     archive = []
-    openfile = open(filename, "w")
-    writer = csv.writer(openfile)
+    open_inv = open(filename, "w")
+    writer = csv.writer(open_inv)
 
     for k, v in inventory.items():
         for i in range(v):
             archive.append(k)
 
     writer.writerow(archive)
+    open_inv.close()
 
 
 inv = {"rope": 1,
